@@ -1,0 +1,22 @@
+Actual Library versions
+Add Library 
+	JDBC
+		1) com.microsoft.sqljdbc4 4.0.2206.100
+		2) com.microsoft.sqljdbc4.feature   4.0.2206.100
+		3) com.microsoft.sqljdbc4.ui   4.0.2206.100
+	ACS
+		4)	com.microsoftopentechnologies.acsfilter 0.2.0
+		5)  com.microsoftopentechnologies.acsfilter.feature 0.2.0.qualifier
+		6)  com.microsoftopentechnologies.acsfilter.ui 0.2.0.qualifier
+	QPid
+		7) com.microsoftopentechnologies.windowsazure.qpid 0.18.0001
+		8) com.microsoftopentechnologies.windowsazure.qpid.feature 0.0.1.qualifier
+		9) com.microsoftopentechnologies.windowsazure.qpid.ui 0.0.1.qualifier
+	Windows Azure Libraries
+		10) com.microsoftopentechnologies.windowsazure.tools.sdk 0.3.1
+		11) com.microsoftopentechnologies.windowsazure.tools.sdk.feature 0.3.1.qualifier
+		12) com.microsoftopentechnologies.windowsazure.tools.wasdkjava.ui 0.0.1.qualifier
+		
+
+Also take care of changing dependancy versions in for azure SDK in waeclipseplugin and common plugin
+change category.xml accorgingly

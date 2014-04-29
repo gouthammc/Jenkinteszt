@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="testsuite" default="run" basedir=".">
+   <property environment="env" />
+  
+   <property name="plugin-name" value="WAUiAutomation" />
+   <property name="test-classname" value="com.persistent.uiautomation.AllTestRun" />
+   <property name="eclipse-home" value="${env.ECLIPSE_BUILDLOC}/eclipse" />
+   <property name="library-file" value="${env.ECLIPSE_BUILDLOC}/${env.SWTLIB_FILELOC}" />
+   
+   <target name="clean">
+		<!-- delete all contents from build location -->
+		<delete dir="${env.ECLIPSE_BUILDLOC}" />
+	</target>	
+			
+   
+   <target name="configureEnv">
+		<mkdir dir="${env.ECLIPSE_BUILDLOC}"/>
+		<!-- unzip eclipse with SWTBOT to eclipseLoc -->
+		<unzip src="${env.ECLIPSE_ZIP_LOC}" dest="${env.ECLIPSE_BUILDLOC}"/>
+		
+		<!-- copy plugins to eclipse -->
+		<copy todir="${env.ECLIPSE_BUILDLOC}/eclipse/plugins">
+			<fileset dir="${env.GIT_REPO_LOC}/PluginsAndFeatures/WindowsAzurePlugin4EJ/target/repository/plugins"/>
+			<fileset dir="${env.GIT_REPO_LOC}/UITests/WAUiAutomation/build/plugin"/>
+		</copy>
+		
+		<!-- copy features to eclipse -->
+		<copy todir="${env.ECLIPSE_BUILDLOC}/eclipse/features">
+			<fileset dir="${env.GIT_REPO_LOC}/PluginsAndFeatures/WindowsAzurePlugin4EJ/target/repository/features"/>			
+		</copy>
+		
+   </target> 
+   
+   <target name="executeUITests">  
+		<property name="jvmOption" value=""></property>
+		<property name="temp-workspace" value="testautomationws"/>  
+		<delete dir="${temp-workspace}" quiet="true"/>
+   
+		<ant target="swtbot-test" antfile="${library-file}" dir="${eclipse-home}"> 
+			<property name="data-dir" value="${temp-workspace}"/>
+			<property name="plugin-name" value="${plugin-name}"/>
+			<property name="os" value="win32"/> 
+			<property name="ws" value="win32"/> 
+			<property name="arch" value="${env.MACHINE_ARCH}"/>
+			<property name="classname" value="${test-classname}"/> 
+			<property name="vmargs" value="-Xms128M -XX:MaxPermSize=512m -Xmx512M"/> 
+		</ant>
+   </target> 
+   
+   
+   
+   <target name="run" depends="clean,configureEnv,executeUITests">
+   </target> 
+</project>
